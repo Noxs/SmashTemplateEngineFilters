@@ -2,15 +2,11 @@ const chai = require('chai');
 const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
-const Size = require('../lib/size/size.js');
+const Size = require('../../lib/size/size.js');
 
 describe('Size', function () {
     it('Size Filter: Success', function () {
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = {};
-        templateEngine.translator.language = 'en';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
+        const templateEngine = new Translator();
         assert.equal(size.apply(contextObj, [1]), "1 B");
         assert.equal(size.apply(contextObj, [10]), "10 B");
         assert.equal(size.apply(contextObj, [100]), "100 B");

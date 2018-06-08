@@ -21,7 +21,9 @@
     "url": "https://github.com/Noxs/SmashTemplateEngineFilters/issues"
   },
   "homepage": "https://github.com/Noxs/SmashTemplateEngineFilters#readme",
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.22.2"
+  },
   "devDependencies": {
     "chai": "^4.1.2",
     "codecov": "^3.0.0",

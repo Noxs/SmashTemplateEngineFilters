@@ -2,7 +2,7 @@ const chai = require('chai');
 const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
-const Translator = require('../lib/translator/translate.js');
+const Translator = require('../../lib/translator/translator.js');
 
 
 describe('Translator', function () {

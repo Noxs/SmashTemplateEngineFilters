@@ -2,7 +2,7 @@ const chai = require('chai');
 const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
-const Date = require('../lib/date/date.js');
+const Date = require('../../lib/date/date.js');
 
 
 describe('Date', function () {
