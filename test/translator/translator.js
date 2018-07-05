@@ -19,6 +19,16 @@ const translations = {
     },
     'TEST': {
 
+    },
+    'TEST_REPLACE': {
+        fr: "test %test%",
+        en: "test %test%"
+    },
+    'TEST_REPLACE_1': {
+        fr: "test %test% %test% %test%"
+    },
+    'TEST_REPLACE_2': {
+        fr: "%lol% %test% OK %lol% %test%"
     }
 };
 
@@ -81,6 +91,11 @@ describe('Translator', function () {
 
         translator.setLanguage("fr");
         assert.equal(translator.execute("HELLO_WORD"), "Bonjour");
+
+        assert.equal(translator.execute("TEST_REPLACE_1", { test: "lol" }), "test lol lol lol");
+
+        assert.equal(translator.execute("TEST_REPLACE_2", { test: "lol", lol: "test" }), "test lol OK test lol");
+
     });
 
     it('Size execute(): failure', function () {
@@ -91,15 +106,14 @@ describe('Translator', function () {
         expect(testFunc1).to.throw(BadParameterError);
 
         const testFunc2 = function () {
-            translator.execute("string", 123456);
+            translator.execute("TEST_REPLACE", 123456);
         };
         expect(testFunc2).to.throw(BadParameterError);
 
-        /*const testFunc3 = function () {
-            translator.execute("string");
+        const testFunc3 = function () {
+            translator.execute("TEST_REPLACE", {});
         };
-        expect(testFunc3).to.throw(BadParameterError);*/
-
+        expect(testFunc3).to.throw(FilterExecutionError);
     });
 
     it('Size translate(): success', function () {
@@ -111,6 +125,9 @@ describe('Translator', function () {
 
         translator.setLanguage("fr");
         assert.equal(translator.execute("HELLO_WORD"), "Bonjour");
+
+        translator.setLanguage("es");
+        assert.equal(translator.execute("HELLO_WORD"), "Hello");
     });
 
     it('Size translate(): failure', function () {
