@@ -3,78 +3,72 @@ const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
 const Date = require('../../lib/date/date.js');
+const Translator = require('../../lib/translator/translator.js');
+const BadParameterError = require('../../lib/badParameterError.js');
 
+const translator = new Translator({
+    'HELLO_WORD': {
+        en: 'Hello',
+        fr: 'Bonjour',
+        de: 'Hallo'
+    },
+    'HOW_ARE_YOU_QUESTION': {
+        en: 'How are you?',
+        fr: 'Comment ça va?',
+        de: "Wie geht's?"
+    }
+});
 
 describe('Date', function () {
-    it('Date Filter date() function: Success in French', function () {
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = {};
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
-        assert.equal(date.apply(contextObj, [1516724607]), '23 janvier 2018');
-    });
-
-    it('Date Filter date() function : Success in German', function () {
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = {};
-        templateEngine.translator.language = 'de';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
-        assert.equal(date.apply(contextObj, [1516724607]), '23 Januar 2018');
-    });
-
-    it('Date Filter date() function : Success in english', function () {
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = {};
-        templateEngine.translator.language = 'en';
-        templateEngine.translator.fallbackLanguage = 'fr';
-        const contextObj = { _templateEngine: templateEngine };
-        assert.equal(date.apply(contextObj, [1516724607]), 'January 23, 2018');
-    });
-
-    it('Date Filter date() function : Success with a specified format', function () {
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = {};
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
-        assert.equal(date.apply(contextObj, [1516724607, { format: 'dddd DD MMMM YYYY' }]), 'mardi 23 janvier 2018');
-    });
-
-    it('Date Filter date() failure: First parameter is not a number', function () {
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = {};
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
-        testFunc = function () {
-            date.apply(contextObj, ["It is not a number"]);
+    it('Date constructor: success', function () {
+        const testFunc = function () {
+            const date = new Date(translator);
         };
-        expect(testFunc).to.throw();
+        expect(testFunc).to.not.throw();
     });
 
-    it('Date Filter date() failure : Second parameter is not an object', function () {
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = {};
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
-        testFunc = function () {
-            date.apply(contextObj, [1516724607, "It is not an object"]);
+    it('Date constructor: failure', function () {
+        const testFunc = function () {
+            const date = new Date("");
         };
-        expect(testFunc).to.throw();
+        expect(testFunc).to.throw(BadParameterError);
     });
 
-    it('Date Filter date() failure : format parameter is not a string', function () {
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = {};
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
-        testFunc = function () {
-            date.apply(contextObj, [1516724607, { format: 123 }]);
+    it('Date getName()', function () {
+        const date = new Date(translator);
+        assert.equal(date.getName(), "date");
+
+    });
+
+    it('Date execute(): success', function () {
+        const date = new Date(translator);
+
+        translator.setLanguage("en");
+        assert.equal(date.execute(1516724607), 'January 23, 2018');
+
+        translator.setLanguage("fr");
+        assert.equal(date.execute(1516724607, { format: 'dddd DD MMMM YYYY' }), 'mardi 23 janvier 2018');
+        assert.equal(date.execute(1516724607), '23 janvier 2018');
+
+        translator.setLanguage("de");
+        assert.equal(date.execute(1516724607), '23 Januar 2018');
+    });
+
+    it('Date execute(): failure', function () {
+        const date = new Date(translator);
+        const testFunc1 = function () {
+            date.execute("string");
         };
-        expect(testFunc).to.throw();
+        expect(testFunc1).to.throw(BadParameterError);
+
+        const testFunc2 = function () {
+            date.execute(123456789, "string");
+        };
+        expect(testFunc2).to.throw(BadParameterError);
+
+        const testFunc3 = function () {
+            date.execute(123456789, { format: 123546789 });
+        };
+        expect(testFunc3).to.throw(BadParameterError);
     });
 });

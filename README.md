@@ -1,1 +1,1 @@
-# SmashTemplateEngineFilters
+# SmashTemplateEngineFilters [![Build Status](https://travis-ci.org/Noxs/SmashTemplateEngineFilters.svg?branch=master)](https://travis-ci.org/Noxs/SmashTemplateEngineFilters) [![codecov](https://codecov.io/gh/Noxs/SmashTemplateEngineFilters/branch/master/graph/badge.svg)](https://codecov.io/gh/Noxs/SmashTemplateEngineFilters)

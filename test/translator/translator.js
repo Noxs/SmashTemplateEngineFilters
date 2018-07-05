@@ -3,176 +3,131 @@ const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
 const Translator = require('../../lib/translator/translator.js');
+const BadParameterError = require('../../lib/badParameterError.js');
+const FilterExecutionError = require('../../lib/filterExecutionError.js');
 
+const translations = {
+    'HELLO_WORD': {
+        en: 'Hello',
+        fr: 'Bonjour',
+        de: 'Hallo'
+    },
+    'HOW_ARE_YOU_QUESTION': {
+        en: 'How are you?',
+        fr: 'Comment ça va?',
+        de: "Wie geht's?"
+    },
+    'TEST': {
+
+    }
+};
 
 describe('Translator', function () {
-    it('Translate Filter translate() method : Success', function () {
-        const translations = {
-            'HELLO_WORD': {
-                en: 'Hello',
-                fr: 'Bonjour',
-                de: 'Hallo'
-            },
-            'HOW_ARE_YOU_QUESTION': {
-                en: 'How are you?',
-                fr: 'Comment ça va?',
-                de: "Wie geht's?"
-            }
-        };
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = translations;
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
-        assert.equal(translate.apply(contextObj, ['HELLO_WORD']), 'Bonjour');
-    });
-    it('Translate Filter translate() method : with a keyword inside a translation', function () {
-        const translations = {
-            'HELLO_WORD': {
-                en: 'Hello',
-                fr: 'Bonjour %evening%',
-                de: 'Hallo'
-            },
-            'HOW_ARE_YOU_QUESTION': {
-                en: 'How are you?',
-                fr: 'Comment ça va?',
-                de: "Wie geht's?"
-            }
-        };
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = translations;
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
-        assert.equal(translate.apply(contextObj, ['HELLO_WORD', { 'evening': "ou bonsoir" }]), 'Bonjour ou bonsoir');
-    });
 
-    it('Translate Filter translate() method : First parameter is not a string', function () {
-        const translations = {
-            'HELLO_WORD': {
-                en: 'Hello',
-                fr: 'Bonjour',
-                de: 'Hallo'
-            },
-            'HOW_ARE_YOU_QUESTION': {
-                en: 'How are you?',
-                fr: 'Comment ça va?',
-                de: "Wie geht's?"
-            }
-        };
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = translations;
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
+    it('Translator constructor: success', function () {
         const testFunc = function () {
-            const result = translate.apply(contextObj, [{ data: 'This is an object' }]);
-        };
-        expect(testFunc).to.throw();
-    });
-
-    it('Translate Filter translate() method : Second parameter is not an object', function () {
-        const translations = {
-            'HELLO_WORD': {
-                en: 'Hello',
-                fr: 'Bonjour',
-                de: 'Hallo'
-            },
-            'HOW_ARE_YOU_QUESTION': {
-                en: 'How are you?',
-                fr: 'Comment ça va?',
-                de: "Wie geht's?"
-            }
-        };
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = translations;
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
-        testFunc = function () {
-            const result = translate.apply(contextObj, ["HELLO_WORD", "It should be an object"]);
-        };
-        expect(testFunc).to.throw();
-    });
-
-    it('Translate Filter translate() method : with a translation inside parameters that is not defined', function () {
-        const translations = {
-            'HELLO_WORD': {
-                en: 'Hello',
-                fr: 'Bonjour %evening%',
-                de: 'Hallo'
-            },
-            'HOW_ARE_YOU_QUESTION': {
-                en: 'How are you?',
-                fr: 'Comment ça va?',
-                de: "Wie geht's?"
-            }
-        };
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = translations;
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
-
-        testFunc = function () {
-            translate.apply(contextObj, ['HELLO_WORD', { 'evening': undefined }]);
-        };
-        expect(testFunc).to.throw();
-    });
-
-    it('Translate Filter translate() method : with a translation inside parameters that is not defined #2', function () {
-        const translations = {
-            'HELLO_WORD': {
-                en: 'Hello',
-                fr: 'Bonjour %evening%',
-                de: 'Hallo'
-            },
-            'HOW_ARE_YOU_QUESTION': {
-                en: 'How are you?',
-                fr: 'Comment ça va?',
-                de: "Wie geht's?"
-            }
-        };
-        const context = {
-            files: []
-        };
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = translations;
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
-
-        testFunc = function () {
-            translate.apply(contextObj, ['HELLO_WORD', { 'evening': context.files.length }]);
+            const translator = new Translator(translations);
         };
         expect(testFunc).to.not.throw();
     });
 
-    it('Translate Filter translate() method : with a translation inside parameters that is not defined #3', function () {
-        const translations = {
-            'HELLO_WORD': {
-                en: 'Hello',
-                fr: 'Bonjour %evening%',
-                de: 'Hallo'
-            },
-            'HOW_ARE_YOU_QUESTION': {
-                en: 'How are you?',
-                fr: 'Comment ça va?',
-                de: "Wie geht's?"
-            }
+    it('Translator constructor: failure', function () {
+        const testFunc = function () {
+            const translator = new Translator("");
         };
-        const context = {
-            zero: 0
-        };
-        const templateEngine = new TemplateEngine();
-        templateEngine.translator.translations = translations;
-        templateEngine.translator.language = 'fr';
-        templateEngine.translator.fallbackLanguage = 'en';
-        const contextObj = { _templateEngine: templateEngine };
+        expect(testFunc).to.throw(BadParameterError);
+    });
 
-        testFunc = function () {
-            translate.apply(contextObj, ['HELLO_WORD', { 'evening': context.zero }]);
+    it('Translator getName()', function () {
+        const translator = new Translator(translations);
+        assert.equal(translator.getName(), "translate");
+
+    });
+
+    it('Translator getLanguage()/setLanguage()', function () {
+        const translator = new Translator(translations);
+        assert.equal(translator.getLanguage(), null);
+        translator.setLanguage("en");
+        assert.equal(translator.getLanguage(), "en");
+        translator.setLanguage("fr");
+        assert.equal(translator.getLanguage(), "fr");
+
+        const testFunc = function () {
+            translator.setLanguage(123);
         };
-        expect(testFunc).to.not.throw();
+        expect(testFunc).to.throw(BadParameterError);
+    });
+
+    it('Translator getFallbackLanguage()/setFallbackLanguage()', function () {
+        const translator = new Translator(translations);
+        assert.equal(translator.getFallbackLanguage(), "en");
+        translator.setFallbackLanguage("fr");
+        assert.equal(translator.getFallbackLanguage(), "fr");
+        translator.setFallbackLanguage("en");
+        assert.equal(translator.getFallbackLanguage(), "en");
+
+        const testFunc = function () {
+            translator.setFallbackLanguage(123);
+        };
+        expect(testFunc).to.throw(BadParameterError);
+    });
+
+    it('Size execute(): success', function () {
+        const translator = new Translator(translations);
+        assert.equal(translator.execute("HELLO_WORD"), "Hello");
+
+        translator.setLanguage("en");
+        assert.equal(translator.execute("HELLO_WORD"), "Hello");
+
+        translator.setLanguage("fr");
+        assert.equal(translator.execute("HELLO_WORD"), "Bonjour");
+    });
+
+    it('Size execute(): failure', function () {
+        const translator = new Translator(translations);
+        const testFunc1 = function () {
+            translator.execute(123456);
+        };
+        expect(testFunc1).to.throw(BadParameterError);
+
+        const testFunc2 = function () {
+            translator.execute("string", 123456);
+        };
+        expect(testFunc2).to.throw(BadParameterError);
+
+        /*const testFunc3 = function () {
+            translator.execute("string");
+        };
+        expect(testFunc3).to.throw(BadParameterError);*/
+
+    });
+
+    it('Size translate(): success', function () {
+        const translator = new Translator(translations);
+        assert.equal(translator.execute("HELLO_WORD"), "Hello");
+
+        translator.setLanguage("en");
+        assert.equal(translator.execute("HELLO_WORD"), "Hello");
+
+        translator.setLanguage("fr");
+        assert.equal(translator.execute("HELLO_WORD"), "Bonjour");
+    });
+
+    it('Size translate(): failure', function () {
+        const translator = new Translator(translations);
+        const testFunc1 = function () {
+            translator.translate(123456);
+        };
+        expect(testFunc1).to.throw(BadParameterError);
+
+        const testFunc2 = function () {
+            translator.translate("string");
+        };
+        expect(testFunc2).to.throw(FilterExecutionError);
+
+        const testFunc3 = function () {
+            translator.translate("TEST");
+        };
+        expect(testFunc3).to.throw(FilterExecutionError);
     });
 });
