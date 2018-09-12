@@ -48,7 +48,8 @@ const translations = {
 const translator = new filters.Translate(translations);
 translator.execute("HELLO_KEYWORD"); // Hello World !
 
-translator.language = "fr"; // The default language of the filter is english
+translator.setLanguage("fr"); // set the language
+translator.setFallbackLanguage("en"); // Fallback language is en by default
 translator.execute("HELLO_KEYWORD"); // Bonjour !
 ```
 
