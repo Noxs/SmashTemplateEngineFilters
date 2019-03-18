@@ -1,6 +1,6 @@
 {
   "name": "smash-template-engine-filters",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Basic filters for SmashTemplateEngine",
   "main": "index.js",
   "scripts": {
