@@ -2,7 +2,7 @@ const chai = require('chai');
 const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
-const Base64 = require('../../lib/base64/Base64.js');
+const Base64 = require('../../lib/base64/base64.js');
 const BadParameterError = require('../../lib/badParameterError.js');
 
 describe('Base64', function () {
