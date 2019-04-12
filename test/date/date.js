@@ -49,6 +49,7 @@ describe('Date', function () {
         translator.setLanguage("fr");
         assert.equal(date.execute(1516724607, { format: 'dddd DD MMMM YYYY' }), 'mardi 23 janvier 2018');
         assert.equal(date.execute(1516724607), '23 janvier 2018');
+        assert.equal(date.execute('2018-01-23T10:33:41.362Z'), '23 janvier 2018');
 
         translator.setLanguage("de");
         assert.equal(date.execute(1516724607), '23 Januar 2018');
