@@ -61,6 +61,10 @@ describe('Translator', function () {
         assert.equal(translator.getLanguage(), "en");
         translator.setLanguage("fr");
         assert.equal(translator.getLanguage(), "fr");
+        translator.setLanguage("fr-FR");
+        assert.equal(translator.getLanguage(), "fr");
+        translator.setLanguage("en-us");
+        assert.equal(translator.getLanguage(), "en");
 
         const testFunc = function () {
             translator.setLanguage(123);
