@@ -15,6 +15,6 @@ describe('Index', function () {
         assert.exists(Index.ToUpperCase);
         assert.exists(Index.Translator);
         assert.exists(Index.Base64);
+        assert.exists(Index.Nl2br);
     });
-
 });
