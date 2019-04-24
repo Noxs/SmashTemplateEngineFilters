@@ -7,6 +7,7 @@ const Plural = require('./lib/plural/plural.js');
 const Join = require('./lib/join/join.js');
 const ForbiddenJsKeyword = require('./lib/forbiddenJsKeyword/forbiddenJsKeyword.js');
 const Base64 = require('./lib/base64/base64.js');
+const Nl2br = require('./lib/nl2br/nl2br.js');
 
 
 module.exports = {
@@ -20,4 +21,5 @@ module.exports = {
     Join: Join,
     ForbiddenJsKeyword: ForbiddenJsKeyword,
     Base64: Base64,
+    Nl2br: Nl2br,
 };
