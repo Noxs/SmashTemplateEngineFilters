@@ -20,7 +20,7 @@ describe('Nl2br', function () {
 
 	it('Nl2br execute(): success', function () {
 		const nl2br = new Nl2br();
-		assert.equal(nl2br.execute("a_string\n\nlol  \n"), "a_string</br></br>lol  </br>");
+		assert.equal(nl2br.execute("a_string\n\nlol  \n"), "a_string<br><br>lol  <br>");
 	});
 
 	it('Nl2br execute(): failure', function () {
