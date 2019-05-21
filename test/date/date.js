@@ -71,5 +71,10 @@ describe('Date', function () {
             date.execute(123456789, { format: 123546789 });
         };
         expect(testFunc3).to.throw(BadParameterError);
+
+        const testFunc4 = function () {
+            date.execute({});
+        };
+        expect(testFunc4).to.throw(BadParameterError);
     });
 });
