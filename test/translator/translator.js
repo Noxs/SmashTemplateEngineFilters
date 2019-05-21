@@ -77,7 +77,7 @@ describe('Translator', function () {
         assert.equal(translator.getFallbackLanguage(), "en");
         translator.setFallbackLanguage("fr");
         assert.equal(translator.getFallbackLanguage(), "fr");
-        translator.setFallbackLanguage("en");
+        translator.setFallbackLanguage("en-EN");
         assert.equal(translator.getFallbackLanguage(), "en");
 
         const testFunc = function () {
