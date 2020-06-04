@@ -1,6 +1,6 @@
 {
   "name": "smash-template-engine-filters",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Basic filters for SmashTemplateEngine",
   "main": "index.js",
   "scripts": {
@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/Noxs/SmashTemplateEngineFilters#readme",
   "dependencies": {
-    "moment": "^2.24.0"
+    "moment": "^2.26.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "codecov": "^3.1.0",
-    "coveralls": "^3.0.2",
+    "codecov": "^3.7.0",
+    "coveralls": "^3.1.0",
     "eslint": "^4.19.1",
     "istanbul": "^0.4.5",
     "mocha": "^4.1.0",

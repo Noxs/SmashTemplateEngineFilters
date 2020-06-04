@@ -77,7 +77,7 @@ describe('Translator', function () {
         assert.equal(translator.getFallbackLanguage(), "en");
         translator.setFallbackLanguage("fr");
         assert.equal(translator.getFallbackLanguage(), "fr");
-        translator.setFallbackLanguage("en");
+        translator.setFallbackLanguage("en-EN");
         assert.equal(translator.getFallbackLanguage(), "en");
 
         const testFunc = function () {
@@ -86,7 +86,7 @@ describe('Translator', function () {
         expect(testFunc).to.throw(BadParameterError);
     });
 
-    it('Size execute(): success', function () {
+    it('Translator execute(): success', function () {
         const translator = new Translator(translations);
         assert.equal(translator.execute("HELLO_WORD"), "Hello");
 
@@ -102,7 +102,7 @@ describe('Translator', function () {
 
     });
 
-    it('Size execute(): failure', function () {
+    it('Translator execute(): failure', function () {
         const translator = new Translator(translations);
         const testFunc1 = function () {
             translator.execute(123456);
@@ -120,7 +120,7 @@ describe('Translator', function () {
         expect(testFunc3).to.throw(FilterExecutionError);
     });
 
-    it('Size translate(): success', function () {
+    it('Translator translate(): success', function () {
         const translator = new Translator(translations);
         assert.equal(translator.execute("HELLO_WORD"), "Hello");
 
@@ -134,7 +134,7 @@ describe('Translator', function () {
         assert.equal(translator.execute("HELLO_WORD"), "Hello");
     });
 
-    it('Size translate(): failure', function () {
+    it('Translator translate(): failure', function () {
         const translator = new Translator(translations);
         const testFunc1 = function () {
             translator.translate(123456);
