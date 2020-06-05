@@ -9,6 +9,7 @@ describe('Join', function () {
     it('Join constructor: success', function () {
         const testFunc = function () {
             const join = new Join();
+            assert.equal(join.execute.length, 3);
         };
         expect(testFunc).to.not.throw();
     });

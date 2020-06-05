@@ -9,6 +9,7 @@ describe('Nl2br', function () {
 	it('Nl2br constructor: success', function () {
 		const testFunc1 = function () {
 			const nl2br = new Nl2br();
+			assert.equal(nl2br.execute.length, 3);
 		};
 		expect(testFunc1).to.not.throw();
 	});

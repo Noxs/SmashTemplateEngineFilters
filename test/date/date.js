@@ -23,6 +23,7 @@ describe('Date', function () {
     it('Date constructor: success', function () {
         const testFunc = function () {
             const date = new Date(translator);
+            assert.equal(date.execute.length, 3);
         };
         expect(testFunc).to.not.throw();
     });

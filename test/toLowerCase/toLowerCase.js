@@ -9,6 +9,7 @@ describe('ToLowerCase', function () {
     it('ToLowerCase constructor: success', function () {
         const testFunc = function () {
             const toLowerCase = new ToLowerCase();
+            assert.equal(toLowerCase.execute.length, 3);
         };
         expect(testFunc).to.not.throw();
     });
