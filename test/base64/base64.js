@@ -9,6 +9,7 @@ describe('Base64', function () {
     it('Base64 constructor: success', function () {
         const testFunc1 = function () {
             const base64 = new Base64();
+            assert.equal(base64.execute.length, 3);
         };
         expect(testFunc1).to.not.throw();
     });

@@ -37,6 +37,7 @@ describe('Translator', function () {
     it('Translator constructor: success', function () {
         const testFunc = function () {
             const translator = new Translator(translations);
+            assert.equal(translator.execute.length, 3);
         };
         expect(testFunc).to.not.throw();
     });

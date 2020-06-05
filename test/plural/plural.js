@@ -9,6 +9,7 @@ describe('Plural', function () {
     it('Plural constructor: success', function () {
         const testFunc = function () {
             const plural = new Plural();
+            assert.equal(plural.execute.length, 3);
         };
         expect(testFunc).to.not.throw();
     });

@@ -9,6 +9,7 @@ describe('ToUpperCase', function () {
     it('ToUpperCase constructor: success', function () {
         const testFunc = function () {
             const toUpperCase = new ToUpperCase();
+            assert.equal(toUpperCase.execute.length, 3);
         };
         expect(testFunc).to.not.throw();
     });

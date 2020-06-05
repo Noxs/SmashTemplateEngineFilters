@@ -44,6 +44,7 @@ describe('Size', function () {
     it('Size constructor: success', function () {
         const testFunc = function () {
             const size = new Size(translator);
+            assert.equal(size.execute.length, 3);
         };
         expect(testFunc).to.not.throw();
     });

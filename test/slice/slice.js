@@ -16,6 +16,7 @@ describe('Slice', function () {
     it('Slice getName()', function () {
         const slice = new Slice();
         assert.equal(slice.getName(), "slice");
+        assert.equal(slice.execute.length, 3);
     });
 
     it('Slice execute(): success case #1', function () {

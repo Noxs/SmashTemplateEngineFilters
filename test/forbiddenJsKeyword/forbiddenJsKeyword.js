@@ -9,6 +9,7 @@ describe('ForbiddenJsKeyword', function () {
     it('ForbiddenJsKeyword constructor: success', function () {
         const testFunc1 = function () {
             const forbiddenJsKeyword = new ForbiddenJsKeyword();
+            assert.equal(forbiddenJsKeyword.execute.length, 3);
         };
         expect(testFunc1).to.not.throw();
         const testFunc2 = function () {
